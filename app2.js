@@ -1,17 +1,30 @@
-$(document).ready(function() {
+
 console.log("hello");
 var selectedAnswerArr=[];
 var startGameBtn = $('#startGame');
 var timerCounter =$('.timer');
 var number = 30;
 var correctAnswers=["BTC","Satoshi Nakamoto","Blockchain","Ripple","TD Bank","Miners","JP Morgan",];
-var choicesList = $('.choices');
+var choicesList = $(".choices");
+var userChoice = $(".choices").innerHTML;
 
+
+
+
+$(document).ready(function() {
 console.log(selectedAnswerArr);
 console.log(startGameBtn);
 console.log(timerCounter);
 
 
+function pushAnswer() {
+  $(".choices").on('click',function(event) {
+    var userChoice = $(".choices").innerHTML;
+    var userStr = toString(userChoice);
+    selectedAnswerArr.push(userStr);
+  });
+}
+console.log(selectedAnswerArr);
 //  Variable that will hold our interval ID when we execute
 //  the "run" function
 var intervalId;
@@ -19,24 +32,12 @@ var intervalId;
 
 
 ///// FUNCTIONSSSSSSSSSSSSSSS
-function userAnswerInput() {
-  var t = this;
-  var answerChosen = t.value;
-
-if($('.choices').on('click',function() {
-
- selectedAnswerArr.push(answerChosen);
- console.log(selectedAnswerArr);
-})
-
-)}
-
 function run() {
   clearInterval(intervalId);
   intervalId = setInterval(decrement, 1000);
   console.log(intervalId);
-}
 
+}
 //  The decrement function.
 function decrement() {
 
@@ -68,4 +69,5 @@ function stop() {
 
 //  Execute the run function.
 run();
-});
+pushAnswer();
+})
